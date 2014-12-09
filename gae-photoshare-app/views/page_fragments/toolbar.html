@@ -1,0 +1,31 @@
+<div id="tooplate_menu">
+  <ul>
+    <li>
+      <a href="/" class="current">Home</a>
+    </li>
+
+    {# Check if user is authenticated #}
+
+    {% if user %}
+      <li>
+        <a href="/upload">Upload a File</a>
+      </li>
+    {% else %}
+      <li>
+        <a href="{{ auth_url }}">Login</a>
+      </li>
+    {% endif %}
+
+    <li class="last">
+      <a href="/contact">Contact</a>
+    </li>
+  </ul>
+
+  <div id="login_message">
+    {% if user %}
+      <a href="{{ auth_url }}">Logout {{ user.nickname() }}</a>
+    {% endif %}
+  </div>
+
+  <div class="cleaner"></div>
+</div>

@@ -1,0 +1,33 @@
+{% extends "/views/base.html" %}
+
+{% block title %} Photo.share - Slideshow {% endblock %}
+
+{% block content %}
+
+{# Link to a full resolution version of the curent image #}
+<a href="img?resolution=high&img_id={{ photo.key.id() }}"> [ Full Resolution ] </a>
+
+<hr>
+
+<table align="center" width="100%">
+  <tr>
+    {# Link to the previous image #}
+    <td align="left">
+      <a href="slideshow?action=prev&img_id={{ photo.key.id() }}"> &lt; &lt; Prev </a>
+    </td>
+
+    {# Display the current image with medium resolution #}
+    <td align="center">
+      <img src="img?resolution=medium&img_id={{ photo.key.id() }}"/>
+    </td>
+
+    {# Link to the next image #}
+    <td align="right">
+      <a href="slideshow?action=next&img_id={{ photo.key.id() }}">Next &gt; &gt;</a>
+    </td>
+  </tr>
+</table>
+
+<hr>
+
+{% endblock %}

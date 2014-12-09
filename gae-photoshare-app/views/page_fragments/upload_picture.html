@@ -1,0 +1,64 @@
+{% autoescape true %}
+
+<div class="cleaner"></div>
+
+<h3>Upload an Image</h3>
+
+<hr>
+
+<div>
+  <form action='upload' enctype="multipart/form-data" method='post'>
+    <table>
+      <tr>
+  
+        <td>
+          <table>
+            <tr>
+              <td>
+                <label>Description</label>
+                <input name="description" placeholder="Type Here">
+              </td>
+              <td></td>
+            </tr>
+  
+            <tr>
+              <td>
+                <input type='file' name='upload_photo' id="imgInp"/>
+              </td>
+  
+              <td></td>
+              <td></td>
+            </tr>
+  
+            <tr>
+              <td>
+                <input id="submit" name="submit" type="submit" value="Submit">
+              </td>
+              <td></td>
+            </tr>
+          </table>
+       </td>
+  
+       <td>
+         <table>
+           <tr>
+             <td>
+               <img id="imgpreview" alt="Image Preview" style="max-width:300px;max-height:300px;" />
+             </td>
+           </tr>
+         </table>
+       </td>
+  
+      </tr>
+    </table>
+  </form>
+</div>
+
+<hr>
+
+<script>
+  $("#imgInp").change(function(){
+      readURL(this);
+  });
+</script>
+{% endautoescape %}

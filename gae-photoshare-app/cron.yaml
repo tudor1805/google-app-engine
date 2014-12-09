@@ -1,0 +1,4 @@
+cron:
+- description: print cache summary job
+  url: /crons/summary
+  schedule: every 10 minutes

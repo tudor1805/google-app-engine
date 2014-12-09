@@ -1,0 +1,12 @@
+indexes:
+- kind: PhotoUpload
+  ancestor: yes
+  properties:
+  - name: upload_user
+  - name: date
+- kind: PhotoUpload
+  ancestor: yes
+  properties:
+  - name: upload_user
+  - name: date
+    direction: desc

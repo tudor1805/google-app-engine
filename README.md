@@ -11,7 +11,7 @@ Some of the things you may learn by diving into it:
   - Handling HTTP requests in App Engine
   - Interacting with the Datastore, for holding persistent data
   - Using the Memcache to store frequently accessed images
-  - Creating an Appengine Cron task, that will display memcache statistics
+  - Creating an App Engine Cron task, that will display memcache statistics
 
 ### Documentation
 The official [App Engine Documentation] is probably the best place to start
@@ -34,9 +34,9 @@ The [PIL Library] does not come bundled with the SDK, so it will not work by def
 ```sh
 $ git clone https://github.com/tudor1805/google-app-engine.git
 ```
-4. Edit the app.yaml file, and replace your-app-id, with the  id of the project
+4. Edit the app.yaml file, and replace your-app-id, with the id of the project (you cand find in the [Cloud Console] of the project)
 ```sh
-$ sed 's/your-app-id/my-app-id/g' -i gae-photoshare-app/app.yaml
+$ sed -i 's/your-app-id/my-app-id/g' gae-photoshare-app/app.yaml
 ```
 5. Upload your application (you may need to wait a while)
 ```sh
@@ -68,13 +68,13 @@ http://localhost:8080/           -> Your deployed site
 http://localhost:8000/instances  -> Application console
 ```
 
-
 ### Todo's
 
  - The current app uses a single photo album. Extend it, so that it can use an arbitrary number of photo albums. Albums could be public/private.
  - Allow the sharing of photos with other people. (Ex: generate a unique link that holds the image, and give it to other people)
  - Implement image comments
  - Maybe make it as a service, so that it can be used by mobile apps
+ - Create a mobile app that takes photos and uploads them to the user's album of choice
 
 ### Version
 1.0

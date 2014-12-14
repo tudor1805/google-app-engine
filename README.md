@@ -36,7 +36,7 @@ The [PIL Library] does not come bundled with the SDK, so it will not work by def
     $ git clone https://github.com/tudor1805/google-app-engine.git
     ```
     
-4. Edit the app.yaml file, and replace your-app-id, with the id of the project (you cand find in the [Cloud Console] of the project)
+4. Edit the app.yaml file, and replace your-app-id, with the id of the project (you can find it in the [Cloud Console] of the project)
 
     ```sh
     $ cd google-app-engine

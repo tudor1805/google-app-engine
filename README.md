@@ -31,42 +31,56 @@ The [PIL Library] does not come bundled with the SDK, so it will not work by def
 1. Create a Google App Engine account
 2. Go to your [Cloud Console], and create a new project
 3. Clone this repository
-```sh
-$ git clone https://github.com/tudor1805/google-app-engine.git
-```
+
+    ```sh
+    $ git clone https://github.com/tudor1805/google-app-engine.git
+    ```
+    
 4. Edit the app.yaml file, and replace your-app-id, with the id of the project (you cand find in the [Cloud Console] of the project)
-```sh
-$ sed -i 's/your-app-id/my-app-id/g' gae-photoshare-app/app.yaml
-```
+
+    ```sh
+    $ cd google-app-engine
+    $ sed -i 's/your-app-id/my-app-id/g' gae-photoshare-app/app.yaml
+    ```
+
 5. Upload your application (you may need to wait a while)
-```sh
-$ appcfg.py update gae-photoshare-app/
-```
+
+    ```sh
+    $ appcfg.py update gae-photoshare-app/
+    ```
+
 6. Open your browser, and point it to the following address (my-app-id is the actual id of the project)
-```sh
-http://my-app-id.appspot.com/
-```
+
+    ```sh
+    http://my-app-id.appspot.com/
+    ```
 
 ### Debugging
 
 1. Uploading the application
-```sh
-$ appcfg.py update gae-photoshare-app/
-```
+
+    ```sh
+    $ appcfg.py update gae-photoshare-app/
+    ```
 2. Running the application (local server)
-```sh
-$ dev_appserver.py gae-photoshare-app/
-```
+
+    ```sh
+    $ dev_appserver.py gae-photoshare-app/
+    ```
+
 3. Clean and update indexes
-```sh
-$ appcfg.py vacuum_indexes gae-photoshare-app/
-$ appcfg.py update_indexes gae-photoshare-app/
-```
+
+    ```sh
+    $ appcfg.py vacuum_indexes gae-photoshare-app/
+    $ appcfg.py update_indexes gae-photoshare-app/
+    ```
+
 4. Open your browser
-```sh
-http://localhost:8080/           -> Your deployed site
-http://localhost:8000/instances  -> Application console
-```
+ 
+    ```sh
+    http://localhost:8080/           -> Your deployed site
+    http://localhost:8000/instances  -> Application console
+    ```
 
 ### Todo's
 

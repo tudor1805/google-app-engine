@@ -76,11 +76,6 @@ class ServerApi(remote.Service):
                       name='update_settings')
     def update_settings(self, request):
         try:
-            # TODO - Endpoints authentication
-            #user = users.get_current_user()
-            #current_user = endpoints.get_current_user()
-            #print "User is [%s]" % str(user)
-            #print "Endpoints User is [%s]" % str(current_user)
             self._update_settings(request.user_id,
                                   request.device_id,
                                   request.search_radius,
@@ -158,8 +153,6 @@ class ServerApi(remote.Service):
                 logging.info("User %s not found" % friend_id)
 
         if search_users_ids:
-            # All users. Testing purpose
-            # query_users = UserPosition.all()
             query_users = UserPosition.all().filter('user IN', search_users_ids)
 
             # Find all existing users within search_radius meters
@@ -247,6 +240,7 @@ class ServerApi(remote.Service):
          for user_data in users_data:
              self._dummy_user_data(user_data)
 
+    """ Return dummy answer, to be used for testing """
     def _dummy_answer(self):
         answer = QueryResponseMessage()
         near_friends = []
@@ -268,8 +262,6 @@ class ServerApi(remote.Service):
     def post_query(self, request):
         answer = QueryResponseMessage()
         try:
-            self._dummy_data()
-            #return self._dummy_answer()
             near_friends_loc = self._proximity_query(request.user_id,
                                                      request.device_id,
                                                      request.user_friend_ids)

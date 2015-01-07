@@ -1,0 +1,97 @@
+ obj = {
+ 89                 'success': 'some var', 
+ 90                 'payload': 'some var',
+ 91                 'result':  { 'a' : 'b', 'c' : 'd'},
+ 92               } 
+ 
+
+26 class MyEntity(geo.geomodel.GeoModel):
+ 27     foo = db.StringProperty()
+ 28     bar = db.IntegerProperty()
+
+ def foo(self):
+ 42         my_document = search.Document(
+ 43             # Setting the doc_id is optional. If omitted, the search service will create an identifier.
+ 44             doc_id = 'PA6-5000',
+ 45             fields=[
+ 46                search.TextField(name='customer', value='Joe Jackson'),
+ 47                search.HtmlField(name='comment', value='this is <em>marked up</em> text'),
+ 48                search.NumberField(name='number_of_visits', value=7), 
+ 49                search.DateField(name='last_visit', value=datetime.now()),
+ 50                search.DateField(name='birthday', value=datetime(year=1960, month=6, day=19)),
+ 51                search.GeoField(name='home_location', value=search.GeoPoint(37.619, -122.37))
+ 52                ])
+ 53         try:
+ 54             index = search.Index(name="myIndex")
+ 55             index.put(document)
+ 56         except search.Error:
+ 57             logging.exception('Put failed')
+ 58 
+
+ #        pos = UserPosition(parent=position_key(user.user_id()))                                                                                                   
+ 61 #        pos.location = GeoPt()
+ 62 #        pos.user = user
+ 63 #        pos.search_radius = 15
+ 64 #        pos.visible = True
+ 65 #        pos.put()
+ 66 
+                                                                                                                                                               
+ 60         #some_entity = MyEntity(location = db.GeoPt(44.46346844, 26.06971621),
+ 61         #some_entity = MyEntity(location = db.GeoPt(37, -122),
+ 62         #                       foo='Hello',
+ 63         #                       bar=5)
+ 64 
+ 65 #        some_entity.location = db.GeoPt(38, -122)
+ 66         #some_entity.update_location()
+ 67         #some_entity.put()
+ 68         #datastore_types.Key.from_path(u'MyEntity', 1, _app=u'test')
+ 69 
+
+ pos = UserPosition(location=location,
+ 51                            user=user, foo="Bla", bar=4)
+
+=======================================
+
+
+ 55         # Retrieve the photos corresponding to the current user
+ 56         settings_query = UserSettings.query(                                                                                                                       
+ 57                         ancestor = generate_key(user.user_id())).filter(
+ 58                           UserSettings.user == user)
+ 59         settings = settings_query.fetch()
+ 60 
+ 61         print "=============================="
+ 62 
+ 63         pprint(settings[0])
+ 64         # Edit existing settings
+ 65         user_setting = settings[0]
+ 66         user_setting.search_radius = search_radius
+ 67         user_setting .visible = visible
+ 68         user_setting.put()
+ 69 
+ 70         print "=============================="
+
+
+
+#        # Retrieve the photos corresponding to the current user
+ 63 #        settings_query = UserSettings.query(
+ 64 #                        ancestor = generate_key(user.user_id())).filter(
+ 65 #                          UserSettings.user == user)
+ 66 #        settings = settings_query.fetch()
+ 67 #
+ 68 #        print "=============================="
+ 69 #
+ 70 ##        pprint(settings[0])
+ 71 ##        # Edit existing settings
+ 72 ##        user_setting = settings[0]
+ 73 ##        user_setting.search_radius = search_radius
+ 74 ##        user_setting .visible = visible
+ 75 ##        user_setting.put()
+ 76 #
+ 77 #        print "=============================="
+
+
+191            print "USER_ID:[" + str(user_id) + "]"
+192            print "DEVICE_ID:[" + str(device_id) + "]"
+193            print "SEARCH_RADIUS:[" + str(search_radius) + "]"
+194            print "VISIBLE:[" + str(visible) + "]"
+

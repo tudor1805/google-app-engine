@@ -1,0 +1,192 @@
+'''
+@author: Tudor Cornea
+@contact: tudor.cornea@gmail.com
+'''
+
+import webapp2
+import jinja2
+import urllib
+
+import os
+
+from google.appengine.api import users
+from google.appengine.ext import ndb
+from google.appengine.ext import db
+
+from geo.geomodel import GeoModel
+import geo.geomodel
+import geo.geotypes
+
+from models.user_position import *
+
+from pprint import pprint
+
+from datetime import datetime
+from google.appengine.api import search 
+
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), '../')),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
+class Debug(webapp2.RequestHandler):
+
+    def get(self):
+        # Render debug page
+        template = JINJA_ENVIRONMENT.get_template('/views/index.html')
+        self.response.write(template.render())
+
+class Settings(webapp2.RequestHandler):
+
+    def post_user_setting(self, user, device_id, search_radius, visible):
+        uuid = generate_key(user.user_id(), device_id)        
+
+        # Delete any existing settings
+        ndb.delete_multi(
+            UserSettings.query(ancestor = uuid).fetch(keys_only=True)
+        )
+
+        # Create the new settings
+        setting = UserSettings(parent = uuid)
+        setting.user = user
+        setting.device = device_id
+        setting.search_radius = search_radius
+        setting.visible = visible
+        setting.put()
+
+    def get(self):
+        user = users.get_current_user()
+        if not user:
+            auth_url = users.create_login_url(self.request.uri)
+            self.redirect(auth_url)
+
+        user_id       = self.request.get('user_id') 
+        device_id     = self.request.get('device_id') 
+
+        print "GET"
+
+    def post(self):
+        user = users.get_current_user()
+        if not user:
+            auth_url = users.create_login_url(self.request.uri)
+            self.redirect(auth_url)
+
+        user_id       = self.request.get('user_id') 
+        device_id     = self.request.get('device_id') 
+        search_radius = self.request.get('search_radius') 
+        visible       = self.request.get('visible') 
+
+        if user_id is None or device_id is None or search_radius is None or visible is None:
+           self.response.out.write("Error")
+
+        self.post_user_setting(user, device_id, search_radius, visible)
+        self.response.out.write("Ok")
+
+class Foo(webapp2.RequestHandler):
+    def get(self):
+        # Render index page
+        template = JINJA_ENVIRONMENT.get_template('/views/index.html')
+        self.response.write(template.render())
+
+    def create_user_setting(self, user, device_id, search_radius, visible):
+        settings = UserSettings(parent=generate_key(user.user_id(), device_id))
+        settings.user = user
+        settings.device = device_id
+        settings.search_radius = search_radius
+        settings.visible = visible
+        settings.put()
+
+    def get_user_setting(self):
+        print "asdasd"
+
+    def post_user_setting(self, user, device_id, search_radius, visible):
+        uuid = generate_key(user.user_id(), device_id)        
+
+        # Delete any existing settings
+        ndb.delete_multi(
+            UserSettings.query(ancestor = uuid).fetch(keys_only=True)
+        )
+
+        # Create the new settings
+        setting = UserSettings(parent = uuid)
+        setting.user = user
+        setting.device = device_id
+        setting.search_radius = search_radius
+        setting.visible = visible
+        setting.put()
+
+    def create_user_position(self, user, location):
+        pos = UserPosition(location=location,
+                           user=user)
+#        pos.user = user
+        #pos = UserPosition(parent=generate_key(user.user_id()), user = user, location = location)
+        #pos = UserPosition(parent=generate_key(user.user_id()))
+#        pos.foo = "Bla"
+#        pos.bar = 4
+        pos.update_location()
+        pos.put()
+
+    def generate_data(self, user):
+        self.create_user_setting(user, "device1", 15, True)
+        self.create_user_setting(user, "device2", 30, False)
+        self.create_user_setting(user, "device3", 30, False)
+        self.create_user_setting(user, "device4", 30, False)
+
+        #self.create_user_position(user, db.GeoPt(37, -122))
+
+#        self.create_user_position(user, db.GeoPt(37, -122))
+#        self.create_user_position(user, db.GeoPt(20, -51))
+
+#        some_entity = MyEntity(location = db.GeoPt(37, -122),
+#                               foo='Hello',
+#                               bar=5)
+#        some_entity.update_location()
+#        some_entity.put()
+
+    def do_query(self, user):
+        base_query = UserPosition.all()
+        pprint(base_query)
+
+#UserPositin.all().filter('bar <', 10),  # Rich query!
+
+        res = UserPosition.all().filter('user =', user)
+        #res = UserPosition.all(UserPosition.user == user)
+        #res = UserPosition.all().query(UserPosition.user == user)
+        print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        pprint(res)
+
+        for user_position in res:
+           pprint(user_position)
+           pprint(user_position.location)
+        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+        self.generate_data(user)
+
+        self.post_user_setting(user, "device3", 5, True)
+        #self.post_user_setting(user, "device1", 10, True)
+
+#        result = UserPosition.proximity_fetch(
+#               UserPosition.all(),
+#               geo.geotypes.Point(39, -121),  # Or db.GeoPt
+#               max_results=10,
+#               max_distance=160934)  # Within 100 miles.
+
+#        base_query.filter('user' = user)
+
+    def post(self):
+        user = users.get_current_user()
+        if not user:
+            auth_url = users.create_login_url(self.request.uri)
+            self.redirect(auth_url)
+
+        latitude  = self.request.get('latitude' , 0) 
+        longitude = self.request.get('longitude', 0) 
+
+#        self.generate_data(user)
+
+        self.do_query(user)
+
+        pprint(users)
+        pprint(user)
+        self.response.out.write("Hello [%s]" % (user))
+      

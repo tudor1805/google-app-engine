@@ -118,7 +118,7 @@ public class AppFacade {
 
 			if (nearFriends != null) {
 				for (ApiMessagesFriendLocation friend : nearFriends) {
-					Log.v("blabla", friend.getUserFriendId() + " " + friend.getLatitude() + " " +friend.getLongitude());
+					Log.v("Contact: ", friend.getUserFriendId() + " " + friend.getLatitude() + " " +friend.getLongitude());
 					mapNearFriends.put(friend.getUserFriendId(), new LatLng(
 							friend.getLatitude(), friend.getLongitude()));
 				}

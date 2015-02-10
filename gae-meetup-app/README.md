@@ -65,7 +65,7 @@ Unfortunately, at this stage a fresh deployment will be painful, as you will nee
 7. Upload your application (you may need to wait a while)
 
     ```sh
-    $ appcfg.py update gae-meetup-app/
+    $ appcfg.py update geosearch-server-endpoints/
     ```
 
 6. Open your browser, and point it to the following address (my-app-id is the actual id of the project)
@@ -82,19 +82,19 @@ Unfortunately, at this stage a fresh deployment will be painful, as you will nee
 1. Uploading the application
 
     ```sh
-    $ appcfg.py update gae-meetup-app/
+    $ appcfg.py update geosearch-server-endpoints/
     ```
 2. Running the application (local server)
 
     ```sh
-    $ dev_appserver.py gae-meetup-app/
+    $ dev_appserver.py geosearch-server-endpoints/
     ```
 
 3. Clean and update indexes
 
     ```sh
-    $ appcfg.py vacuum_indexes gae-meetup-app/
-    $ appcfg.py update_indexes gae-meetup-app/
+    $ appcfg.py vacuum_indexes geosearch-server-endpoints/
+    $ appcfg.py update_indexes geosearch-server-endpoints/
     ```
 
 4. Open your browser

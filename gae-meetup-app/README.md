@@ -73,6 +73,9 @@ Unfortunately, at this stage a fresh deployment will be painful, as you will nee
     ```sh
     http://my-app-id.appspot.com/
     ```
+7. Open The Android App project, clean & build it
+
+8. Deploy the .apk file to an android device
 
 ### Debugging
 

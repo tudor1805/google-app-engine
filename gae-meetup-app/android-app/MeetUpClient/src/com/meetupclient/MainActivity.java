@@ -108,14 +108,14 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
-	private void showNetworkDisabledAlertToUser() {
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder.setMessage(
-				"Network access is disabled in your device. Disabling app")
-				.setCancelable(false);
-		AlertDialog alert = alertDialogBuilder.create();
-		alert.show();
-	}
+	/*
+	 * private void showNetworkDisabledAlertToUser() { AlertDialog.Builder
+	 * alertDialogBuilder = new AlertDialog.Builder(this);
+	 * alertDialogBuilder.setMessage(
+	 * "Network access is disabled in your device. Disabling app")
+	 * .setCancelable(false); AlertDialog alert = alertDialogBuilder.create();
+	 * alert.show(); }
+	 */
 
 	private void hideApp() {
 		Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -130,7 +130,7 @@ public class MainActivity extends FragmentActivity implements
 				.getActiveNetworkInfo();
 
 		if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
-			showNetworkDisabledAlertToUser();
+			// showNetworkDisabledAlertToUser();
 			hideApp();
 		}
 	}
@@ -187,6 +187,10 @@ public class MainActivity extends FragmentActivity implements
 					.toString();
 			long selectedRadius = Long.parseLong(radiusText.split(" ")[0]);
 
+			if (currentUser == null) {
+				// Error
+				return;
+			}
 			appFacade.updateSettingsAsync(currentUser.getId(),
 					AppDeviceManager.getDeviceId(thisActivity), selectedRadius,
 					isVisible);
@@ -232,20 +236,23 @@ public class MainActivity extends FragmentActivity implements
 				}
 			});
 
-			appFacade.updateLocation(currentUser.getId(),
-					AppDeviceManager.getDeviceId(thisActivity),
-					currentLocation.getLatitude(),
-					currentLocation.getLongitude());
+			if (currentUser != null) {
+				appFacade.updateLocation(currentUser.getId(),
+						AppDeviceManager.getDeviceId(thisActivity),
+						currentLocation.getLatitude(),
+						currentLocation.getLongitude());
+			}
 		}
 	}
 
 	private void queryNearFriends() {
-		// mCirclesList
+		if (currentUser == null)
+			return;
+
 		Map<String, LatLng> mapNearFriends = appFacade.queryNearFriends(
 				currentUser.getId(),
-				AppDeviceManager.getDeviceId(thisActivity),
-				// mTestCirclesList);
-				mCirclesList);
+				AppDeviceManager.getDeviceId(thisActivity), mTestCirclesList);
+		// mCirclesList);
 
 		if (mapNearFriends != null) {
 			for (String friend_id : mapNearFriends.keySet()) {
@@ -299,6 +306,14 @@ public class MainActivity extends FragmentActivity implements
 		mTestCirclesList.add("test_user3");
 		mTestCirclesList.add("test_user4");
 		mTestCirclesList.add("test_user5");
+		mTestCirclesList.add("test_user6");
+		mTestCirclesList.add("test_user7");
+		mTestCirclesList.add("test_user8");
+		mTestCirclesList.add("test_user9");
+		mTestCirclesList.add("test_user10");
+		mTestCirclesList.add("test_user11");
+		mTestCirclesList.add("test_user12");
+		mTestCirclesList.add("test_user13");
 	}
 
 	@Override

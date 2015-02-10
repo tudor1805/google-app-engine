@@ -41,15 +41,15 @@ Unfortunately, at this stage a fresh deployment will be painful, as you will nee
 1. Create a Google App Engine account
 2. Go to your [Cloud Console], and create a new project
 4. Enable from the console the following APIs:
-5. Google Maps v.2 Api
-6. Google Cloud Endpoints Api
-7. Google+ Api
-8. [possibly 1-2 more]
-9. Generate a new Client ID for Cloud Endpoints
-10. Generate a new Client ID for Google Play Services/ Google +
-11. Generate an API key for Google Maps API
-  
-5. Clone this repository
+ 1. Google Maps v.2 Api
+ 2. Google Cloud Endpoints Api
+ 3. Google+ Api
+ 4. [possibly 1-2 more]
+5. Generate Authentication Keys and Client IDs
+ 1. Generate a new Client ID for Cloud Endpoints
+ 2. Generate a new Client ID for Google Play Services/ Google +
+ 3. Generate an API key for Google Maps API
+6. Clone this repository
 
     ```sh
     $ git clone https://github.com/tudor1805/google-app-engine.git
@@ -65,7 +65,7 @@ Unfortunately, at this stage a fresh deployment will be painful, as you will nee
 7. Upload your application (you may need to wait a while)
 
     ```sh
-    $ appcfg.py update gae-photoshare-app/
+    $ appcfg.py update gae-meetup-app/
     ```
 
 6. Open your browser, and point it to the following address (my-app-id is the actual id of the project)
